@@ -308,8 +308,8 @@ export const BuildForm = <T extends { [index: string]: any }>({
           onSubmit={(e) => {
             e.preventDefault();
             const errors = validateForm();
-            console.log(JSON.stringify(errors));
             if (errors.length > 0) {
+              console.log(JSON.stringify(errors));
               const { error } = createActions(name);
               dispatch(
                 error(

@@ -29,6 +29,7 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
+import Register from "./pages/Register";
 
 setupIonicReact();
 
@@ -47,6 +48,7 @@ const App: React.FC = () => {
             </Route>
             <Route path="/home" component={Home} exact={true} />
             <Route path="/login" component={Login} exact={true} />
+            <Route path="/register" component={Register} exact={true} />
             <Route path="/" exact={true}>
               <Redirect to="/home" />
             </Route>
