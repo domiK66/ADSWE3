@@ -1,7 +1,7 @@
 class ServerConfig {
   // private _host = "https://localhost:7244";
   // private _datahost = "https://localhost:7170";
-  private _baseurl = "http://localhost:9080";
+  private _baseurl = "http://localhost:19080";
   private _api = "/mgmt";
   private _data = "";
 

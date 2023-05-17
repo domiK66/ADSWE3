@@ -30,6 +30,8 @@ import "./theme/variables.css";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import Register from "./pages/Register";
+import { SecureRoute } from "./components/SecureRoute";
+import ItemsList from "./pages/itemlist";
 
 setupIonicReact();
 
@@ -49,6 +51,7 @@ const App: React.FC = () => {
             <Route path="/home" component={Home} exact={true} />
             <Route path="/login" component={Login} exact={true} />
             <Route path="/register" component={Register} exact={true} />
+            <SecureRoute path="/itemlist" component={ItemsList}></SecureRoute>
             <Route path="/" exact={true}>
               <Redirect to="/home" />
             </Route>

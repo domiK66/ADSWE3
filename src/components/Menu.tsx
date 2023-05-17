@@ -25,7 +25,14 @@ const appPages: AppPage[] = [
   }
 ];
 
-var secureAppPage: AppPage[] = [];
+var secureAppPage: AppPage[] = [
+  {
+    title: 'ItemsList',
+    url: '/itemlist',
+    iosIcon: homeOutline,
+    mdIcon: homeSharp
+  }
+];
 
 function AddMenu(item: AppPage) {
   if (secureAppPage.some(e => e.url === item.url) == false) {
@@ -45,6 +52,12 @@ const Menu: React.FC = () => {
   var securityItem2 = null;
 
   if (isNotExpired(authenticationInformation)) {
+    AddMenu({
+      title: 'Corals & Animals',
+      url: '/itemlist',
+      iosIcon: listOutline,
+      mdIcon: listSharp
+    });
     securityItem = {
       title: 'Logout ' + user?.fullName,
       url: '/home',
