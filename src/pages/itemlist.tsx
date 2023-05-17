@@ -34,17 +34,22 @@ import { ThunkDispatch } from 'redux-thunk';
 import { useDispatch, useSelector } from 'react-redux';
 //import {fetchValues} from "../../services/rest/values";
 //import {IconConverter} from "../../services/utils/iconconverter";
-import { CoralsResult, fetchCoralsAction } from '../services/actions/items';
+import { AnimalsResult, CoralsResult, fetchCoralsAction, fetchAnimalsAction } from '../services/actions/items';
 import { RootState } from '../services/reducers/Index';
 
 const ItemsList: React.FC<RouteComponentProps> = ({ history }) => {
-  const { corals, isLoading, errorMessage } = useSelector((s: RootState) => s.items);
+  const { animals, corals, isLoading, errorMessage } = useSelector((s: RootState) => s.items);
   const token = useSelector((s: RootState) => s.user.authenticationInformation!.token || '');
   const dispatch = useDispatch();
   const thunkDispatch = dispatch as ThunkDispatch<RootState, null, CoralsResult>;
+  const thunkDispatchAnimals = dispatch as ThunkDispatch<RootState, null, AnimalsResult>;
+
   useEffect(() => {
     thunkDispatch(fetchCoralsAction()).then(x => console.log(x));
     console.log(corals);
+
+    thunkDispatchAnimals(fetchAnimalsAction()).then(x => console.log(x));
+    console.log(animals);
   }, []);
 
   const NoValuesInfo = () =>
@@ -86,6 +91,33 @@ const ItemsList: React.FC<RouteComponentProps> = ({ history }) => {
     });
     return corals.length > 0 ? <IonList>{items}</IonList> : <NoValuesInfo />;
   };
+  const ListAnimals = () => {
+    const items = animals.map(animal => {
+      let icon = flower;
+      let unit = '';
+
+      return (
+        <IonItemSliding key={animal.id}>
+          <IonItemOptions side="end">
+            <IonItemOption
+              onClick={() => {
+                console.log(animal.name);
+              }}>
+              <IonIcon icon={information} /> Details
+            </IonItemOption>
+          </IonItemOptions>
+          <IonItem key={animal.id} onClick={() => history.push('/animal/show/' + animal.id)}>
+            <IonIcon icon={icon} />
+            {animal.name} ({animal.amount})
+            <div className="item-note" slot="end">
+              {animal.species}
+            </div>
+          </IonItem>
+        </IonItemSliding>
+      );
+    });
+    return animals.length > 0 ? <IonList>{items}</IonList> : <NoValuesInfo />;
+  };
 
   return (
     <IonPage>
@@ -122,6 +154,16 @@ const ItemsList: React.FC<RouteComponentProps> = ({ history }) => {
         <IonItem>
           <IonLabel>Animals</IonLabel>
         </IonItem>
+
+        {isLoading ? (
+          <IonItem>
+            <IonSpinner />
+            Loading Values...
+          </IonItem>
+        ) : (
+          <ListAnimals />
+        )}
+
 
         <IonToast isOpen={errorMessage ? errorMessage.length > 0 : false} onDidDismiss={() => false} message={errorMessage} duration={5000} color="danger" />
       </IonContent>
