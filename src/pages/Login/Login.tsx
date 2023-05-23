@@ -2,12 +2,12 @@ import * as Validator from '../../services/utils/Validator';
 import { IonButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonTitle, IonToolbar, IonPage } from '@ionic/react';
 import { BuildForm, FormDescription } from '../../services/utils/FormBuilder';
 import { RouteComponentProps } from 'react-router';
-import { loggedIn } from '../../services/actions/Users';
+import { loggedIn } from '../../services/actions/user';
 import { useDispatch } from 'react-redux';
 import { executeDelayed } from '../../services/utils/AsyncHelpers';
 import { LoginRequest, UserClient } from '../../services/rest/interface';
-import ServerConfig from '../../services/rest/ServerConfig';
-import { IConfig } from '../../services/rest/IConfig';
+import ServerConfig from '../../services/rest/server-config';
+import { IConfig } from '../../services/rest/iconfig';
 import { AppStorage } from '../../services/utils/AppStorage';
 
 type formData = Readonly<LoginRequest>;
@@ -48,14 +48,14 @@ export const Login: React.FunctionComponent<RouteComponentProps<any>> = props =>
     userClient
       .login(loginData)
       .then((loginInfo: any) => {
-        console.log(loginInfo)
+        console.log(loginInfo);
         const authresponse = loggedIn(loginInfo);
         dispatch(authresponse);
         if (loginInfo.hasError === false) {
           const JWTStore = new AppStorage();
           Promise.all([
-            JWTStore.set('user', JSON.stringify((loginInfo.data.user && typeof loginInfo.data?.user === 'object') ? loginInfo.data?.user : {})),
-            JWTStore.set('authentication', JSON.stringify((loginInfo.data?.authenticationInformation && typeof loginInfo.data?.authenticationInformation === 'object' ) ? loginInfo.data?.authenticationInformation : {}))
+            JWTStore.set('user', JSON.stringify(loginInfo.data.user && typeof loginInfo.data?.user === 'object' ? loginInfo.data?.user : {})),
+            JWTStore.set('authentication', JSON.stringify(loginInfo.data?.authenticationInformation && typeof loginInfo.data?.authenticationInformation === 'object' ? loginInfo.data?.authenticationInformation : {}))
           ]).then(() => {
             executeDelayed(200, () => props.history.replace('/home'));
           });

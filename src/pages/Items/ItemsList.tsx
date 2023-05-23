@@ -28,14 +28,13 @@ import {
 import { train, add, trash, create, beer, boat, information, water, sunnySharp, flash, car, power, shieldCheckmark, alarm, bed, fish, flower } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { personCircle, search, star, ellipsisHorizontal, ellipsisVertical } from 'ionicons/icons';
-//import '../../services/actions/security';
+
 import { RouteComponentProps } from 'react-router';
 import { ThunkDispatch } from 'redux-thunk';
 import { useDispatch, useSelector } from 'react-redux';
-//import {fetchValues} from "../../services/rest/values";
-//import {IconConverter} from "../../services/utils/iconconverter";
-import { AnimalsResult, CoralsResult, fetchCoralsAction, fetchAnimalsAction } from '../services/actions/items';
-import { RootState } from '../services/reducers/Index';
+
+import { AnimalsResult, CoralsResult, fetchCoralsAction, fetchAnimalsAction } from '../../services/actions/items';
+import { RootState } from '../../services/reducers/Index';
 
 const ItemsList: React.FC<RouteComponentProps> = ({ history }) => {
   const { animals, corals, isLoading, errorMessage } = useSelector((s: RootState) => s.items);
@@ -93,7 +92,7 @@ const ItemsList: React.FC<RouteComponentProps> = ({ history }) => {
   };
   const ListAnimals = () => {
     const items = animals.map(animal => {
-      let icon = flower;
+      let icon = fish;
       let unit = '';
 
       return (
@@ -150,7 +149,6 @@ const ItemsList: React.FC<RouteComponentProps> = ({ history }) => {
         ) : (
           <ListCorals />
         )}
-
         <IonItem>
           <IonLabel>Animals</IonLabel>
         </IonItem>

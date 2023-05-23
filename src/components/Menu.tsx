@@ -6,8 +6,8 @@ import './Menu.css';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector, useStore } from 'react-redux';
 import { RootState } from '../services/reducers/Index';
-import { isNotExpired } from '../services/rest/SecurityHelper';
-import { loggedOut } from '../services/actions/Users';
+import { isNotExpired } from '../services/rest/security-helper';
+import { loggedOut } from '../services/actions/user';
 
 interface AppPage {
   url: string;
@@ -54,7 +54,7 @@ const Menu: React.FC = () => {
   if (isNotExpired(authenticationInformation)) {
     AddMenu({
       title: 'Corals & Animals',
-      url: '/itemlist',
+      url: '/items',
       iosIcon: listOutline,
       mdIcon: listSharp
     });

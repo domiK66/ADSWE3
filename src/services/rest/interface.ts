@@ -9,7 +9,7 @@
 // @ts-nocheck
 
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelToken } from 'axios';
-import {AuthorizedApiBase, IConfig} from "./IConfig";
+import {AuthorizedApiBase, IConfig} from "./iconfig";
 
 export class AquariumClient extends AuthorizedApiBase {
     private instance: AxiosInstance;

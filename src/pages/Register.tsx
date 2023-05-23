@@ -3,12 +3,12 @@ import * as Validator from '../services/utils/Validator';
 import { IonButton, IonButtons, IonContent, IonHeader, IonMenuButton, IonTitle, IonToolbar, IonPage } from '@ionic/react';
 import { BuildForm, FormDescription } from '../services/utils/FormBuilder';
 import { RouteComponentProps } from 'react-router';
-import { loggedIn, register } from '../services/actions/Users';
+import { loggedIn, register } from '../services/actions/user';
 import { useDispatch } from 'react-redux';
 import { executeDelayed } from '../services/utils/AsyncHelpers';
 import { LoginRequest, ResponseModel, User, UserClient } from '../services/rest/interface';
-import ServerConfig from '../services/rest/ServerConfig';
-import { IConfig } from '../services/rest/IConfig';
+import ServerConfig from '../services/rest/server-config';
+import { IConfig } from '../services/rest/iconfig';
 import { AppStorage } from '../services/utils/AppStorage';
 
 type formData = Readonly<User>;
